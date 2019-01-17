@@ -1,11 +1,6 @@
 ﻿using NameLabelWriter.Domain;
-using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -16,8 +11,6 @@ namespace NameLabelWriter
     {
         NameLabelWriter wrt;
         List<Animal> animals = null;
-        
-
 
         public FindAnimal(NameLabelWriter wrt)
         {            
@@ -90,12 +83,12 @@ namespace NameLabelWriter
 
         private void btnCreateExcelFile_Click(object sender, EventArgs e)
         {
-            if (saveToExcel(wrt.animalsToPrint) == true)
+            if (saveToExcel(wrt.animalsToPrint))
             {
                 wrt.animalsToPrint.Clear();
                 lbAnimalsToPrint.Items.Clear();                
             }
-            label4.Text = "Aantal naamkaartjes: " + wrt.animalsToPrint.Count;
+            label4.Text = "Aantal naamkaartjes: " + wrt.animalsToPrint.Count;         
         }
 
         private bool saveToExcel(List<Animal> animals)
@@ -186,62 +179,6 @@ namespace NameLabelWriter
             return sfd;
         }
 
-
-        //private bool AppendToExcel(List<Animal> animals)
-        //{
-        //    try
-        //    {
-        //        Excel.Application app = new Excel.Application();
-        //        app.DisplayAlerts = false;
-        //        Excel.Workbook book = app.Workbooks.Open(System.AppDomain.CurrentDomain.BaseDirectory + "etiketten.xlsx");
-        //        //Excel.shee sheets = book.Worksheets;
-        //        Excel.Worksheet sheet = app.ActiveSheet as Excel.Worksheet;
-        //        int cell = 1;
-        //        int row = 2;
-        //        foreach (Animal animal in animals)
-        //        {
-        //            sheet.Cells[cell, row] = animal.name;
-        //            cell++;
-        //            sheet.Cells[cell, row] = animal.countryOfOrigin;
-        //            row += 2;
-        //            if (row % 8 == 0)
-        //            {
-        //                row = 2;
-        //                cell += 2;
-        //            }
-        //            else
-        //            {
-        //                cell--;
-        //            }
-        //        }
-        //        SaveFileDialog sfd = new SaveFileDialog();
-        //        DateTime date = DateTime.Now;
-        //        string filename = date.ToString();               
-        //        sfd.FileName = replaceChars(filename);
-
-        //        sfd.Filter = "Excel Files(.xlsx)|*.xlsx";
-        //        if (sfd.ShowDialog() == DialogResult.OK)
-        //        {
-        //            string name = sfd.FileName;
-        //            //book.SaveAs(name);
-        //            book.Save();
-        //            app.DisplayAlerts = false;
-        //            closeExcel(app, book, sheet);
-        //            return true;
-        //        }
-        //        else
-        //        {
-        //            closeExcel(app, book, sheet);
-        //            return false;
-        //        }           
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //        return false;
-        //    }
-        //}
-
         public string replaceChars(string filename)
         {
             filename = filename.Replace('/', '-');
@@ -256,33 +193,5 @@ namespace NameLabelWriter
                 btnFindAnimal_Click(this, new EventArgs());
             }
         }
-
-        //private void closeExcel(Excel.Application app, Excel.Workbook book, Excel.Worksheet sheet)
-        //{
-
-        //    //book.Close();
-        //    book.Close(false, Type.Missing, Type.Missing);
-        //    Marshal.FinalReleaseComObject(book);
-        //    book = null;
-            
-        //    app.Quit();
-        //    app = null;
-        //    Marshal.FinalReleaseComObject(app);
-        //    GC.Collect();
-        //    //app.DisplayAlerts = true;
-
-
-        //    //sheet.Close(true);
-        //    //app.Workbooks.Close();
-
-
-        //    //Marshal.FinalReleaseComObject(sheet);
-            
-            
-            
-        //    //sheet = null;
-            
-        //}
     }
-
 }
