@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace NameLabelWriter
 {
@@ -7,15 +8,13 @@ namespace NameLabelWriter
     {
 
         private const string connectionString =
-            //"Server=DESKTOP-MDRT003;Database=museumwinkel;Trusted_Connection=True;";
-            //"Server=gt-hp-01;Database=museumwinkel;Uid=root;Pwd=PBAWovST8!;Trusted_Connection=True";
-            "server=127.0.0.1;uid=root;pwd=PBAWovST8!;database=museumwinkel;Trusted_Connection=True;";
+            "server=127.0.0.1;uid=root;pwd=PBAWovST8!;database=museumwinkel;";
 
-        public static SqlConnection Connection
+        public static MySqlConnection Connection
         {
             get
             {
-                var connection = new SqlConnection(connectionString);
+                var connection = new MySqlConnection(connectionString);
                 try
                 {
                     connection.Open();

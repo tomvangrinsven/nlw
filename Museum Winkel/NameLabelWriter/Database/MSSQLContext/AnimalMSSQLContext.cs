@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using NameLabelWriter.Domain;
 using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace NameLabelWriter.Database.MSSQLContext
 {
@@ -13,9 +14,9 @@ namespace NameLabelWriter.Database.MSSQLContext
             string query = "DELETE FROM animal WHERE id = @id";
             try
             {
-                using (SqlConnection connection = DatabaseConnection.Connection)
+                using (MySqlConnection connection = DatabaseConnection.Connection)
                 {
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                             command.Parameters.AddWithValue("@id", id);
                             command.ExecuteNonQuery();
@@ -36,11 +37,11 @@ namespace NameLabelWriter.Database.MSSQLContext
             string query = "SELECT * FROM animal order by name";
             try
             {
-                using (SqlConnection connection = DatabaseConnection.Connection)
+                using (MySqlConnection connection = DatabaseConnection.Connection)
                 {
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (MySqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
@@ -68,12 +69,12 @@ namespace NameLabelWriter.Database.MSSQLContext
             string query = "SELECT * FROM animal WHERE name LIKE @Name order by name";
             try
             {
-                using (SqlConnection connection = DatabaseConnection.Connection)
+                using (MySqlConnection connection = DatabaseConnection.Connection)
                 {
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Name", "%" + Name + "%");
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (MySqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
@@ -100,9 +101,9 @@ namespace NameLabelWriter.Database.MSSQLContext
             string query = "INSERT INTO animal(name, country_of_origin) VALUES(@name, @countryOfOrigin)";
             try
             {
-                using (SqlConnection connection = DatabaseConnection.Connection)
+                using (MySqlConnection connection = DatabaseConnection.Connection)
                 {
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         foreach (Animal animal in animals)
                         {
@@ -127,9 +128,9 @@ namespace NameLabelWriter.Database.MSSQLContext
             string query = "UPDATE animal SET name = @name, country_of_origin = @countryOfOrigin where id = @id";
             try
             {
-                using (SqlConnection connection = DatabaseConnection.Connection)
+                using (MySqlConnection connection = DatabaseConnection.Connection)
                 {
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@name", animal.name);
                         command.Parameters.AddWithValue("@countryOfOrigin", animal.countryOfOrigin);

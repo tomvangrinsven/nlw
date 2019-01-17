@@ -13,7 +13,7 @@ namespace NameLabelWriter
         List<Animal> animals = null;
 
         public FindAnimal(NameLabelWriter wrt)
-        {            
+        {
             InitializeComponent();
             animals = new List<Animal>();
             this.wrt = wrt;
@@ -32,7 +32,6 @@ namespace NameLabelWriter
                 foreach (Animal animal in wrt.animalRepo.getAnimalsByName(txtFindAnimal.Text))
                 {
                     lbResults.Items.Add(animal);
-                    
                 }
                 if (lbResults.Items.Count == 1)
                 {
@@ -42,7 +41,6 @@ namespace NameLabelWriter
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-
             }
         }
 
@@ -86,9 +84,9 @@ namespace NameLabelWriter
             if (saveToExcel(wrt.animalsToPrint))
             {
                 wrt.animalsToPrint.Clear();
-                lbAnimalsToPrint.Items.Clear();                
+                lbAnimalsToPrint.Items.Clear();
             }
-            label4.Text = "Aantal naamkaartjes: " + wrt.animalsToPrint.Count;         
+            label4.Text = "Aantal naamkaartjes: " + wrt.animalsToPrint.Count;
         }
 
         private bool saveToExcel(List<Animal> animals)
@@ -139,7 +137,6 @@ namespace NameLabelWriter
             int row = 2;
             foreach (Animal animal in animals)
             {
-
                 sheet.Cells[cell, row] = animal.name;
                 cell++;
                 sheet.Cells[cell, row] = animal.countryOfOrigin;
